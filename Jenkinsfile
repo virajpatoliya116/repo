@@ -38,7 +38,7 @@ pipeline {
                     echo 'building the application'
                     echo "Software version is ${NEW_VERSION}"
                     sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.nextMinorVersion}.\\\${parsedVersion.incrementalVersion}\\\${parsedVersion.qualifier?}' 
-                    sh 'mvn clean package'
+                    //sh 'mvn clean package'
                     def version = (readFile('pom.xml') =~ '<version>(.+)</version>')[0][2]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                     sh "docker build -t 20it116/exam:${IMAGE_NAME} ."
